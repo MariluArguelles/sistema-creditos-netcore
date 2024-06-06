@@ -26,3 +26,5 @@ cerrar Visual Studio para que no de problemas de permiso de achivos
  git reset --hard pegar aqui la clave del comit
 
  agregué nueva linea a git hub para segundo commit
+
+ otra linea y después compilar para tercer commit
