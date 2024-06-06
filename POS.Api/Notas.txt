@@ -1,0 +1,100 @@
+﻿
+-----------------------
+https://localhost:7287/watchdog
+------------
+CONTRASEÑA PARA ENTRAR A DOCKER Y DOCKER LOGIN
+docker login
+malucienta
+Rontplv2051
+-----------------
+PARA HACER UN PUSH A DOCKER 
+docker login
+malucienta
+Rontplv2051
+docker images
+docker tag ea7dcd3a28a7 malucienta/pos:latest
+docker push malucienta/pos:latest
+----------------------------------------
+
+ERROR --- NO CARGA LA FACTURA EN PDF  (PERO SI GENERA REPORTES DE CLIENTES)
+XHR failed loading: GET polyfills.322d494d9ab5c959.js
+'https://malucienta2024-001-site1.anytempurl.com/api/Sale/GetBill/19' FROM origin 'https://sistemacreditos.netlify.app' 
+has been blocked by CORS policy: NO 'Access-Control-Allow-Origin' header is present on the request resource
+
+SOLUCIÓN:
+Indica que estás intentando cargar recursos desde un dominio diferente al del sitio web actual, 
+y el servidor que aloja esos recursos no está configurado para permitir solicitudes desde tu dominio
+https://stackoverflow.com/questions/63272680/how-do-i-deal-with-cors-problem-for-angular-app-deployed-on-heroku-with-a-postgr
+Consultar con el proveedor de alojamiento: Si estás utilizando un proveedor de alojamiento para tu servidor, es posible que haya restricciones adicionales de seguridad o configuraciones específicas que debas tener en cuenta. Consulta con el proveedor de alojamiento para obtener ayuda y orientación.
+Aquii indica que puede ser errores del servidor de alojamiento
+El error era que el servidor no encontraba el logo.png por que no había subido la imagen y la ruta se debe cambiar también.
+
+
+Scaffold-DbContext:
+Scaffold-DbContext "Server=DESKTOP-MBLT26B\MSSQLSERVER_MARI; Database=SistemaCreditos2; Trusted_Connection=True;TrustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities
+
+Scaffold-DbContext "Server=MALUCIENTA; Database=SistemaCreditos2; Trusted_Connection=True;TrustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir EntitiesPrueba
+
+--------------- Para actualizar una tabla de la base de datos: -----------
+
+
+--------------- Para actualizar una tabla de la base de datos: -----------
+
+Para configurar el Docker..
+Dirección IPv4. . . . . . . . . . . . . . : 192.168.100.16
+
+------------Comandos Docker----------------
+
+Dirección IPv4. . . . . . . . . . . . . . : 192.168.100.16
+
+Pegar en docker file
+RUN ln -fs /usr/share/zoneinfo/America/Lima /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+
+Abrir terminal en :
+cd C:\Users\PC\source\repos\CURSOUDEMY\Sistema POS\POS
+
+Comenzar a escribir comandos
+docker image build -t pos:1.0 -f .\POS.Api\Dockerfile .
+docker image ls
+docker container create --name pos-container -p 2023:8080 pos:1.0
+docker container ls
+docker container start pos-container
+docker container ls
+----------------------------------
+ docker container stop 951f3c70d1f83ae219566205000cf5986340e5d41dd2393b9857596ab49d83f4
+remover contenedor por ID
+ docker container rm 951f3c70d1f83ae219566205000cf5986340e5d41dd2393b9857596ab49d83f4
+ docker image rm pos:1.0
+crear imagen
+ docker image build -t pos:1.0  -f .\POS.Api\Dockerfile .
+crear contenedor
+ docker container create --name pos-container -p 2023:8080 pos:1.0
+ ---------------------------
+
+Usuario de Api POS
+"username": "admin",
+"password": "admin123"
+--------------------------
+
+Usuarios de SistemaCreditos3
+cajero 	cajero123	cajero@gmail.com  Interno
+Mari Lú	admin	marilu.developer@gmail.com  Externo
+
+--------------------------
+ERROR DE INICIO DE SESIÓN EN SQL SERVER CON LA DIRECCIÓN IPV4 DESPUÉS DE INSTALAR DOCKER
+Se debe habilitar el inicio de sesión con usuario y contraseña, seguir la instrucciones del siguiente video:
+se debe habilitar el usuario sa, 
+se debe habilitar el inicio de sesión con contraseña
+https://www.youtube.com/watch?v=ANFnDqe4JBk&ab_channel=MYTCPIP
+---------------------------------
+Error para conectar Dockcer con la base de datos, manda error de Sql Server Browser ,,,está tomando la cadena que viene dentro de sistemacreditos2context.cs en vez de la 
+cadena de apppsettings.
+---------------------------------
+
+
+Migrations - Code First 
+ Add-migration intialMigration -o Persistences/Migrations
+ Update-database
+
+

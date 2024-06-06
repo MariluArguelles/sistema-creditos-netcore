@@ -1,0 +1,27 @@
+
+crea archivo 
+touch .gitignore
+-----------------
+el archivo gitignore no debe ser un archivo txt
+git add .gitignore
+-----------------------------
+Para borrar el ultimo commit en GIT HUB y mantener los cambios de trabajo en local
+
+cd C:/Users/maril/source/repos/NetCoreAngularSistemaCreditos
+git reset --soft HEAD~1
+git push --force origin main
+--------------------------
+cerrar Visual Studio para que no de problemas de permiso de achivos 
+ .vs/NetCoreAngularSistemaCreditos/FileContentIndex/50bd0c4e-3927-4ea5-8ce2-105ae3eb6869.vsidx
+ -----------------------------
+ hacer commit
+ git add .
+ git commit -m "Actualizar .gitignore para ignorar .vs y eliminar del índice"
+ git push origin main
+ ---------------------------
+ regresar a un commit sin borrar datos
+ git reset --soft pegar aqui la clave del comit
+ -------------------------------
+ regresar a un commit y a su estado de trabajo (borrra cambios)
+ git reset --hard pegar aqui la clave del comit
+

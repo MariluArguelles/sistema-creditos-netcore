@@ -1,0 +1,3 @@
+﻿
+como saber si es válido
+SELECT CAST(REPLACE('9,999,999', ',', '') AS NUMERIC(9,2)) AS numeric_value;
