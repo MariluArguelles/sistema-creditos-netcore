@@ -25,3 +25,4 @@ cerrar Visual Studio para que no de problemas de permiso de achivos
  regresar a un commit y a su estado de trabajo (borrra cambios)
  git reset --hard pegar aqui la clave del comit
 
+ agregué nueva linea a git hub para segundo commit
