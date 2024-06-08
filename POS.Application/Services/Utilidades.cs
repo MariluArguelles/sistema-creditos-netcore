@@ -1,6 +1,10 @@
 ﻿using POS.Application.Interfaces;
 using System.Data;
+using System.Net.Sockets;
+using System.Net;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
+using DocumentFormat.OpenXml.InkML;
 
 namespace POS.Application.Services
 {
@@ -34,27 +38,38 @@ namespace POS.Application.Services
 
             return dataTable;
         }
-        //public DataTable ToDataTable<T>(List<T> items)
-        //{
-        //    var dataTable = new DataTable(typeof(T).Name);
 
-        //    // Obtén todas las propiedades públicas de T
-        //    var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+       
+            private readonly IHttpContextAccessor _httpContextAccessor;
 
-        //    // Agrega las columnas al DataTable basadas en las propiedades de T
-        //    foreach (var prop in properties)
-        //    {
-        //        dataTable.Columns.Add(prop.Name, prop.PropertyType);
-        //    }
+            public Utilidades(IHttpContextAccessor httpContextAccessor)
+            {
+                _httpContextAccessor = httpContextAccessor;
+            }
 
-        //    // Agrega las filas al DataTable con los datos de la lista
-        //    foreach (var item in items)
-        //    {
-        //        var values = properties.Select(prop => prop.GetValue(item)).ToArray();
-        //        dataTable.Rows.Add(values);
-        //    }
+            public bool GetFullUrl()
+            {
+                HttpContext context = _httpContextAccessor.HttpContext;
 
-        //    return dataTable;
-        //}
+                bool isUrl = false;
+
+                if (context == null)
+                {
+                    // Manejo de error si no se puede acceder al HttpContext
+                    return false;
+                }
+
+                var host = context.Request.Host;
+                var path = context.Request.Path;
+                var queryString = context.Request.QueryString;
+                string url= $"{context.Request.Scheme}://{host}{path}{queryString}";
+
+
+                if (url.Contains("https://localhost") || url.Contains("http://localhost"))
+                isUrl = true;
+
+            return isUrl;
+
+            }
     }
 }

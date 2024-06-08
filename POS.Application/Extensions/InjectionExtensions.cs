@@ -26,6 +26,9 @@ namespace POS.Application.Extensions
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+            // Registrar IHttpContextAccessor como un servicio
+            services.AddHttpContextAccessor();
+
             services.AddScoped<IUserApplication, UserApplication>();
             services.AddScoped<ICustomerApplication, CustomerApplication>();
             services.AddScoped<ICategoryApplication, CategoryApplication>();
@@ -39,6 +42,8 @@ namespace POS.Application.Extensions
             services.AddScoped<IUtilidades, Utilidades>();
             services.AddScoped<IAuthApplication,AuthApplication>();
             services.AddWatchDog(configuration);
+
+
 
             return services;
         }
