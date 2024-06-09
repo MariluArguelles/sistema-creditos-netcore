@@ -5,6 +5,7 @@ using POS.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,15 +22,23 @@ namespace POS.Infrastructure.Persistences.Contexts.Cofigurations
             builder.Property(e => e.AuditUpdateDate).HasColumnType("datetime");
             builder.Property(e => e.Price).HasColumnType("numeric(7, 2)");
 
-            builder.HasOne(d => d.Product).WithMany(p => p.SaleItems)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_PreSaleItems_Product");
+            //builder.HasOne(d => d.Product).WithMany(p => p.SaleItems)
+            //    .HasForeignKey(d => d.ProductId)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("FK_PreSaleItems_Product");
 
             builder.HasOne(d => d.Sale).WithMany(p => p.SaleItems)
                 .HasForeignKey(d => d.SaleId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PreSaleItems_PreSales");
+
+            //de chatp gpt para eliminar referencia ciclica
+            builder
+              .HasOne(si => si.Product)
+              .WithMany()  // No navigation property in Product
+              .HasForeignKey(si => si.ProductId)
+              .OnDelete(DeleteBehavior.Cascade);  // Specify the delete behavior if needed
+
         }
     }
 }

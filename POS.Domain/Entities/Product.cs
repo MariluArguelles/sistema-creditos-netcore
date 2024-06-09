@@ -4,7 +4,7 @@ public partial class Product : BaseEntity
 {
     public Product() 
     {
-        SaleItems = new HashSet<SaleItem>();
+     // error??   SaleItems = new HashSet<SaleItem>();
     }
     
     public string Description { get; set; } = null!;
@@ -20,5 +20,11 @@ public partial class Product : BaseEntity
     public int CategoryId { get; set; }
     public string? Sku { get; set; }
     public virtual Category Category { get; set; } = null!;
-    public virtual ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
+    //?????error???? public virtual ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
+
+
+    // Remove the following line
+    // public virtual ICollection<SaleItem> SaleItems { get; set; } = new List<SaleItem>();
 }
+
+

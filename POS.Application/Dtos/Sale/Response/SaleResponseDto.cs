@@ -1,4 +1,5 @@
-﻿using System;
+﻿using POS.Application.Dtos.Sale.Response;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,8 +17,13 @@ namespace POS.Application.Dtos.Sales.Response
         public bool Closed { get; set; }
         public bool Paid { get; set; }
         public string? AuditCreateDate { get; set; }
-        
+         
+        public ICollection<SaleItemResponse> ?SaleItems { get; set; } //prueba
+        public ICollection<PaymentResponse> ?Payments { get; set; }  //prueba
     }
+
+
+ 
 
 
 }

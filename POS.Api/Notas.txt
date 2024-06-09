@@ -20,20 +20,18 @@ ERROR --- NO CARGA LA FACTURA EN PDF  (PERO SI GENERA REPORTES DE CLIENTES)
 XHR failed loading: GET polyfills.322d494d9ab5c959.js
 'https://malucienta2024-001-site1.anytempurl.com/api/Sale/GetBill/19' FROM origin 'https://sistemacreditos.netlify.app' 
 has been blocked by CORS policy: NO 'Access-Control-Allow-Origin' header is present on the request resource
+solución, este error se genera por que en el servidor las rutas funcionan diferente y no encontraba el logo.png que va en la factura.
 
-SOLUCIÓN:
-Indica que estás intentando cargar recursos desde un dominio diferente al del sitio web actual, 
-y el servidor que aloja esos recursos no está configurado para permitir solicitudes desde tu dominio
-https://stackoverflow.com/questions/63272680/how-do-i-deal-with-cors-problem-for-angular-app-deployed-on-heroku-with-a-postgr
-Consultar con el proveedor de alojamiento: Si estás utilizando un proveedor de alojamiento para tu servidor, es posible que haya restricciones adicionales de seguridad o configuraciones específicas que debas tener en cuenta. Consulta con el proveedor de alojamiento para obtener ayuda y orientación.
-Aquii indica que puede ser errores del servidor de alojamiento
-El error era que el servidor no encontraba el logo.png por que no había subido la imagen y la ruta se debe cambiar también.
-
+-----------------------------------------------------
+El comando Scaffold-DbContext se utiliza en Entity Framework Core para generar código de clases de entidades y el contexto de base de datos a partir de una base de datos existente. Esto se conoce como "reverse engineering" o ingeniería inversa.
+Para hacer cambios en la base de datos y que después se refleje en las entidades
 
 Scaffold-DbContext:
-Scaffold-DbContext "Server=DESKTOP-MBLT26B\MSSQLSERVER_MARI; Database=SistemaCreditos2; Trusted_Connection=True;TrustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities
-
 Scaffold-DbContext "Server=MALUCIENTA; Database=SistemaCreditos2; Trusted_Connection=True;TrustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir EntitiesPrueba
+--no funciona --Scaffold-DbContext "Server=DESKTOP-MBLT26B\MSSQLSERVER_MARI; Database=SistemaCreditos2; Trusted_Connection=True;TrustServerCertificate=true;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir EntitiesPrueba
+
+---------------------------------
+
 
 --------------- Para actualizar una tabla de la base de datos: -----------
 

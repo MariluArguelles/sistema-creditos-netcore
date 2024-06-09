@@ -46,6 +46,7 @@ namespace POS.Application.Services
                 if (sales is not null)
                 {
                     response.IsSuccess = true;
+
                     response.Data = _mapper.Map<BaseEntityResponse<SaleResponseDto>>(sales);
                     response.Message = ReplyMessage.MESSAGE_QUERY;
                 }
@@ -67,21 +68,15 @@ namespace POS.Application.Services
         public async Task<BaseResponse<BaseEntityResponse<SaleForPaymentsResponseDto>>> ListSalesForPayments(int customerId, BaseFiltersRequest filters)
         {
             var response = new BaseResponse<BaseEntityResponse<SaleForPaymentsResponseDto>>();
-
-            var sales = await _unitOfWork.Sale.ListSalesForPayments(customerId, filters);
-
             try
             {
-                List<Sale> sale = QuerySalesForPayments(sales.Items, customerId);
-
-                BaseEntityResponse<SaleForPaymentsResponseDto> baseEntity = new BaseEntityResponse<SaleForPaymentsResponseDto>();
-                baseEntity.TotalRecords = sale.Count;
-                baseEntity.Items = Mapping(sale);
+                var sales = await _unitOfWork.Sale.ListSalesForPayments(customerId, filters);
 
                 if (sales is not null)
                 {
                     response.IsSuccess = true;
-                    response.Data = baseEntity;
+
+                    response.Data = _mapper.Map<BaseEntityResponse<SaleForPaymentsResponseDto>>(sales);
                     response.Message = ReplyMessage.MESSAGE_QUERY;
                 }
                 else
@@ -97,75 +92,6 @@ namespace POS.Application.Services
                 WatchDog.WatchLogger.Log(ex.Message);
             }
             return response;
-        }
-
-        private List<Sale> QuerySalesForPayments(List<Sale> sales, int customerId)
-        {
-            List<Sale> sale = sales
-                  .Select(c => new Sale
-                  {
-                      Id=c.Id,
-                      Total = c.Total,
-                      SubTotal = c.SubTotal,
-                      Balance = c.Balance,
-                      Closed=c.Closed,
-                      Paid=c.Paid,
-                      AuditCreateDate = c.AuditCreateDate,
-                      SaleItems = c.SaleItems.Select(si => new SaleItem
-                      {
-                          Id = si.Id,
-                          Quantity = si.Quantity,
-                          Product = si.Product,
-                          Price = si.Price
-                      }).ToList(),
-                      Payments = c.Payments.Select(p => new Payment
-                      {
-                          Quantity = p.Quantity,
-                          Balance = p.Balance,
-                          PaymentDate = p.PaymentDate
-                      }).ToList(),
-                      AuditDeleteUser = c.AuditDeleteUser,
-                      AuditDeleteDate = c.AuditDeleteDate,
-                      CustomerId = c.CustomerId,
-                  })
-                  .Where(x => x.AuditDeleteUser == null && x.AuditDeleteDate == null && x.CustomerId == customerId)
-                  .ToList();
-
-            return sale;
-
-        }
-
-
-        private List<SaleForPaymentsResponseDto> Mapping(List<Sale> sale)
-        {
-            var mappedSales = sale.Select(s => new SaleForPaymentsResponseDto
-            {
-                SaleId = s.Id,
-                Total = s.Total.ToString(),
-                SubTotal = s.SubTotal.ToString(),
-                Balance = s.Balance.ToString(),
-                Closed = s.Closed,
-                Paid = s.Paid,
-                AuditCreateDate = s.AuditCreateDate.ToString(),
-                SaleItems = s.SaleItems.Select(si => new SaleItemResponse
-                {
-                    Id = si.Id,
-                    Quantity = si.Quantity,
-                    Price = si.Price,
-                    Description = si.Product.Description.Trim(),
-                }).ToList(),
-                Payments = s.Payments.Select(p => new PaymentResponse
-                {
-                    Quantity = p.Quantity,
-                    Balance = p.Balance,
-                    PaymentDate = p.PaymentDate,
-                }).ToList(),
-                AuditDeleteUser = s.AuditDeleteUser,
-                AuditDeleteDate = s.AuditDeleteDate,
-                CustomerId = s.CustomerId,
-            }).ToList();
-
-            return mappedSales;
         }
 
 

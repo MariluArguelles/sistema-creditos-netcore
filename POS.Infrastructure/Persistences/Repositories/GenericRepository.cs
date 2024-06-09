@@ -75,6 +75,26 @@ namespace POS.Infrastructure.Persistences.Repositories
             if(filter != null) query = query.Where(filter);
             return query;
         }
+
+        public IQueryable<Sale> GetEntityQuerySpecialForPayments(Expression<Func<T, bool>>? filter = null)
+        {
+
+
+            IQueryable<Sale> query = _context.Set<Sale>()
+                .Include(c => c.SaleItems)
+                .ThenInclude(si => si.Product) // Incluyendo los productos si es necesario
+                .Include(c => c.Payments);
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            return query;
+        }
+
+
+
         public IQueryable<TDTO> Ordering<TDTO>(BasePaginationRequest request, IQueryable<TDTO> queryable, bool pagination = false) where TDTO : class
         {
             IQueryable<TDTO> queryDto = request.Order == "desc"

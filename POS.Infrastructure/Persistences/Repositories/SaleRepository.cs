@@ -4,6 +4,7 @@ using POS.Infrastructure.Commons.Bases.Request;
 using POS.Infrastructure.Commons.Bases.Response;
 using POS.Infrastructure.Persistences.Contexts;
 using POS.Infrastructure.Persistences.Interfaces;
+using System.Linq.Expressions;
 
 
 namespace POS.Infrastructure.Persistences.Repositories
@@ -34,21 +35,18 @@ namespace POS.Infrastructure.Persistences.Repositories
         {
             var response = new BaseEntityResponse<Sale>();
 
-            IQueryable<Sale> query =  _context.Sales
-            .Include(a => a.SaleItems)
-                .ThenInclude(b => b.Product)
-            .Include(a => a.Payments)
-            .Where(x => x.AuditDeleteUser == null && x.AuditDeleteDate == null && x.CustomerId == customerId);
+            var sales = GetEntityQuerySpecialForPayments(x => x.AuditDeleteUser == null && x.AuditDeleteDate == null && x.CustomerId == customerId);
 
+            if (filters.Sort is null) filters.Sort = "Id";
 
-            response.TotalRecords = await query.CountAsync();
-            //  response.TotalRecords = await query.CountAsync();
-            response.Items = await query.ToListAsync();
-
+            response.TotalRecords = await sales.CountAsync();
+            response.Items = await Ordering(filters, sales, !(bool)filters.Download).ToListAsync();
             return response;
         }
 
-     
+
+
+
 
 
     }

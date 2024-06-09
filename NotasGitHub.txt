@@ -7,6 +7,8 @@ git add .gitignore
 -----------------------------
 Para borrar el ultimo commit en GIT HUB y mantener los cambios de trabajo en local
 
+
+cd C:/Users/maril/source/repos/SistemaCreditosFrontEnd
 cd C:/Users/maril/source/repos/NetCoreAngularSistemaCreditos
 git reset --soft HEAD~1
 git push --force origin main
